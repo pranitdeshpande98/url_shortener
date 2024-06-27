@@ -13,6 +13,8 @@ import useFetch from "../hooks/useFetch"
 import {getUrls} from "/db/apiUrls";
 import {getClicksForUrls} from "/db/apiClicks";
 import {UrlState} from "../context"
+import LinkCard from "@/components/link-card";
+import CreateLink from "@/components/CreateLink";
 
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,7 +69,7 @@ const Dashboard = () => {
       </div>
       <div className="flex justify-between">
         <h1 className="text-4xl font-extrabold">My Links</h1>
-{/*     <CreateLink /> */}
+     <CreateLink /> 
       </div>
       <div className="relative">
         <Input
@@ -79,6 +81,9 @@ const Dashboard = () => {
         <Filter className="absolute top-2 right-2 p-1" />
       </div>
       {error && <Error message={error?.message} />}
+      {(filteredUrls || []).map((url, i) => (
+        <LinkCard key={i} url={url} fetchUrls={fnUrls} />
+      ))}
     </div>
   );
 };
